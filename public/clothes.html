@@ -1,0 +1,288 @@
+<!-- 🧥 clothes.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Donate Clothes | Helping Hands</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap & FontAwesome -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f8f9fa;
+    }
+
+    .navbar-brand {
+      font-weight: bold;
+    }
+
+    .donation-header {
+      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+        url('https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+      background-size: cover;
+      background-position: center;
+      color: white;
+      padding: 5rem 0;
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+
+    .donation-card {
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      margin-bottom: 2rem;
+      border: none;
+    }
+
+    .donation-card .card-header {
+      background-color: #4a6fa5;
+      color: white;
+      border-radius: 10px 10px 0 0;
+      font-weight: 600;
+    }
+
+    .form-control:focus {
+      border-color: #4a6fa5;
+      box-shadow: 0 0 0 0.2rem rgba(74, 111, 165, 0.25);
+    }
+
+    .btn-donate {
+      background-color: #4a6fa5;
+      border-color: #4a6fa5;
+      padding: 0.5rem 2rem;
+      font-weight: 500;
+    }
+
+    .btn-donate:hover {
+      background-color: #166088;
+      border-color: #166088;
+    }
+
+    .invalid-feedback {
+      display: none;
+      color: #dc3545;
+    }
+
+    .camera-icon {
+      font-size: 2rem;
+      color: #4a6fa5;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ✅ Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <a class="navbar-brand" href="#"><i class="fas fa-hands-helping mr-2"></i>Helping Hands</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      <li class="nav-item"><a class="nav-link" href="index.html"><i class="fas fa-home mr-1"></i>Home</a></li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="donateDropdown" role="button" data-toggle="dropdown">
+          <i class="fas fa-donate mr-1"></i>Donate
+        </a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="food.html">Food</a>
+          <a class="dropdown-item active" href="#">Clothes</a>
+          <a class="dropdown-item" href="books.html">Books</a>
+        </div>
+      </li>
+      <li class="nav-item"><a class="nav-link" href="available_items.html"><i class="fas fa-boxes mr-1"></i>Available Items</a></li>
+      <li class="nav-item"><a class="nav-link" href="cart.html"><i class="fas fa-shopping-cart mr-1"></i>Cart</a></li>
+      <li class="nav-item"><a class="nav-link" href="login.html"><i class="fas fa-user mr-1"></i>Login</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Header -->
+<div class="donation-header">
+  <h1 class="display-4 font-weight-bold">Donate Clothes</h1>
+  <p class="lead">Give warmth and dignity to those in need by donating clothes</p>
+</div>
+
+<!-- Form -->
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="donation-card card">
+        <div class="card-header text-center">
+          <h3>Clothes Donation Form</h3>
+        </div>
+        <div class="card-body">
+          <form id="clothesDonationForm">
+
+            <!-- Donor Info -->
+            <div class="form-group">
+              <label for="fullName">Your Name*</label>
+              <input type="text" class="form-control" id="fullName" required>
+              <div class="invalid-feedback">Please enter your name</div>
+            </div>
+
+            <div class="form-group">
+              <label for="phone">Phone Number*</label>
+              <input type="tel" class="form-control" id="phone" required>
+              <div class="invalid-feedback">Enter a valid phone number</div>
+            </div>
+
+            <div class="form-group">
+              <label for="address">Pickup Address*</label>
+              <textarea class="form-control" id="address" required></textarea>
+              <div class="invalid-feedback">Please provide the pickup address</div>
+            </div>
+
+            <!-- Clothes Info -->
+            <div class="form-group">
+              <label for="clothesType">Type of Clothes*</label>
+              <select class="form-control" id="clothesType" required>
+                <option value="">Choose</option>
+                <option value="Men">Men's</option>
+                <option value="Women">Women's</option>
+                <option value="Children">Children's</option>
+                <option value="Mixed">Mixed</option>
+              </select>
+              <div class="invalid-feedback">Please select a type</div>
+            </div>
+
+            <div class="form-group">
+              <label for="condition">Condition*</label>
+              <select class="form-control" id="condition" required>
+                <option value="">Choose</option>
+                <option value="New">New</option>
+                <option value="Gently Used">Gently Used</option>
+              </select>
+              <div class="invalid-feedback">Select condition</div>
+            </div>
+
+            <div class="form-group">
+              <label for="quantity">Quantity (Approx pieces)*</label>
+              <input type="number" class="form-control" id="quantity" required>
+              <div class="invalid-feedback">Enter quantity</div>
+            </div>
+
+            <!-- Camera Upload -->
+            <div class="form-group text-center">
+              <label class="d-block">
+                <i class="fas fa-camera camera-icon"></i><br>
+                Take Photo (optional)
+              </label>
+              <input type="file" accept="image/*" capture="environment" class="form-control-file" id="clothesImage">
+            </div>
+
+            <!-- Pickup Time -->
+            <div class="form-group">
+              <label for="preferredTime">Preferred Pickup Time*</label>
+              <select class="form-control" id="preferredTime" required>
+                <option value="">Choose</option>
+                <option value="Morning (8AM - 12PM)">Morning (8AM - 12PM)</option>
+                <option value="Afternoon (12PM - 4PM)">Afternoon (12PM - 4PM)</option>
+                <option value="Evening (4PM - 8PM)">Evening (4PM - 8PM)</option>
+              </select>
+              <div class="invalid-feedback">Please select a pickup time</div>
+            </div>
+
+            <!-- Terms -->
+            <div class="form-check mb-3">
+              <input type="checkbox" class="form-check-input" id="agreeTerms" required>
+              <label class="form-check-label" for="agreeTerms">
+                I agree to the <a href="#">terms and conditions</a>
+              </label>
+              <div class="invalid-feedback">You must agree to the terms</div>
+            </div>
+
+            <!-- Submit -->
+            <div class="text-center">
+              <button type="submit" class="btn btn-donate btn-lg">
+                <i class="fas fa-check-circle mr-2"></i>Submit Donation
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Success Message -->
+<div class="container mt-4" id="thankYouMessage" style="display:none;">
+  <div class="alert alert-success text-center">
+    <h4>🎉 Thank you for donating!</h4>
+    <p>We’ve received your clothes donation details. Our team will contact you soon to confirm pickup.</p>
+    <a href="index.html" class="btn btn-primary">Go to Home</a>
+  </div>
+</div>
+
+<!-- Scripts -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  document.getElementById('clothesDonationForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    let isValid = true;
+
+    const requiredFields = [
+      '#fullName', '#phone', '#address',
+      '#clothesType', '#condition', '#quantity',
+      '#preferredTime', '#agreeTerms'
+    ];
+
+    requiredFields.forEach(selector => {
+      const field = document.querySelector(selector);
+      if (!field.value || (field.type === 'checkbox' && !field.checked)) {
+        field.classList.add('is-invalid');
+        isValid = false;
+      } else {
+        field.classList.remove('is-invalid');
+      }
+    });
+
+    if (isValid) {
+      const donation = {
+        type: "Clothes",
+        name: document.getElementById('fullName').value,
+        phone: document.getElementById('phone').value,
+        address: document.getElementById('address').value,
+        category: document.getElementById('clothesType').value,
+        condition: document.getElementById('condition').value,
+        quantity: parseInt(document.getElementById('quantity').value),
+        pickupTime: document.getElementById('preferredTime').value,
+        date: new Date().toLocaleString()
+      };
+
+      // 🔁 Send to backend API
+      fetch('/api/donations/clothes', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(donation)
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.message) {
+          document.querySelector('.card').style.display = 'none';
+          document.getElementById('thankYouMessage').style.display = 'block';
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+          alert('❌ Failed to submit donation.');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('Server error. Please try again later.');
+      });
+    }
+  });
+</script>
+
+
+</body>
+</html>

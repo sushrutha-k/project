@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account | Helping Hands</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* All the same styles as login page */
+        :root {
+            --primary-color: #4a6fa5;
+            --secondary-color: #166088;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+        
+        .auth-header {
+            background: linear-gradient(rgba(74, 111, 165, 0.8), rgba(22, 96, 136, 0.9)), url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 4rem 0;
+            margin-bottom: 3rem;
+        }
+        
+        .auth-card {
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border: none;
+            margin-bottom: 2rem;
+        }
+        
+        .auth-card .card-header {
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 10px 10px 0 0 !important;
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(74, 111, 165, 0.25);
+        }
+        
+        .btn-auth {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            padding: 0.5rem 2rem;
+            font-weight: 500;
+            width: 100%;
+        }
+        
+        .btn-auth:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+        
+        .btn-google {
+            background-color: #fff;
+            color: #757575;
+            border: 1px solid #ddd;
+            padding: 0.5rem 2rem;
+            font-weight: 500;
+            width: 100%;
+        }
+        
+        .btn-google:hover {
+            background-color: #f8f9fa;
+            border-color: #ccc;
+        }
+        
+        .btn-facebook {
+            background-color: #3b5998;
+            color: white;
+            border: 1px solid #3b5998;
+            padding: 0.5rem 2rem;
+            font-weight: 500;
+            width: 100%;
+        }
+        
+        .btn-facebook:hover {
+            background-color: #344e86;
+            border-color: #344e86;
+            color: white;
+        }
+        
+        .is-invalid {
+            border-color: var(--danger-color);
+        }
+        
+        .invalid-feedback {
+            color: var(--danger-color);
+            display: none;
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 1rem 0;
+            color: #6c757d;
+        }
+        
+        .divider::before, .divider::after {
+            content: "";
+            flex: 1;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        .divider::before {
+            margin-right: 1rem;
+        }
+        
+        .divider::after {
+            margin-left: 1rem;
+        }
+        
+        .auth-footer {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+        
+        .auth-footer a {
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+        
+        .password-toggle {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #6c757d;
+        }
+        
+        .password-toggle:hover {
+            color: var(--primary-color);
+        }
+        
+        .password-container {
+            position: relative;
+        }
+        
+        .strength-meter {
+            height: 5px;
+            background-color: #e9ecef;
+            margin-top: 5px;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        
+        .strength-meter-fill {
+            height: 100%;
+            width: 0;
+            transition: width 0.3s ease;
+        }
+        
+        .strength-weak {
+            background-color: #dc3545;
+            width: 33%;
+        }
+        
+        .strength-medium {
+            background-color: #ffc107;
+            width: 66%;
+        }
+        
+        .strength-strong {
+            background-color: #28a745;
+            width: 100%;
+        }
+        
+        .strength-text {
+            font-size: 0.8rem;
+            margin-top: 3px;
+            text-align: right;
+        }
+        
+        .terms-text {
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-md navbar-dark bg-primary sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-hands-helping mr-2"></i>Helping Hands
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="donateDropdown" role="button" data-toggle="dropdown">
+                            Donate
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="food.html"><i class="fas fa-utensils mr-2"></i>Food</a>
+                            <a class="dropdown-item" href="clothes.html"><i class="fas fa-tshirt mr-2"></i>Clothes</a>
+                            <a class="dropdown-item" href="books.html"><i class="fas fa-book mr-2"></i>Books</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="available_items.html"><i class="fas fa-box-open mr-1"></i>Available Items</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="cart.html"><i class="fas fa-shopping-cart mr-1"></i>Cart</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="login.html"><i class="fas fa-user mr-1"></i>Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Registration Header -->
+    <header class="auth-header text-center">
+        <div class="container">
+            <h1 class="display-4 font-weight-bold">Join Helping Hands</h1>
+            <p class="lead">Create an account to start making donations and helping your community</p>
+        </div>
+    </header>
+
+    <!-- Registration Form -->
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="auth-card card">
+                    <div class="card-header">
+                        <h3 class="mb-0">Create Your Account</h3>
+                    </div>
+                    <div class="card-body">
+                        <form id="registerForm">
+                            <!-- Personal Information -->
+                            <h5 class="mb-3 text-primary">Personal Information</h5>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="firstName">First Name*</label>
+                                    <input type="text" class="form-control" id="firstName" placeholder="Enter your first name" required>
+                                    <div class="invalid-feedback">Please enter your first name</div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="lastName">Last Name*</label>
+                                    <input type="text" class="form-control" id="lastName" placeholder="Enter your last name" required>
+                                    <div class="invalid-feedback">Please enter your last name</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Contact Information -->
+                            <hr class="my-4">
+                            <h5 class="mb-3 text-primary">Contact Information</h5>
+                            <div class="form-group">
+                                <label for="email">Email Address*</label>
+                                <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                                <div class="invalid-feedback">Please enter a valid email address</div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="phone">Phone Number*</label>
+                                    <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number" required>
+                                    <div class="invalid-feedback">Please enter a valid phone number</div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="address">Address*</label>
+                                    <input type="text" class="form-control" id="address" placeholder="Enter your address" required>
+                                    <div class="invalid-feedback">Please enter your address</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Account Security -->
+                            <hr class="my-4">
+                            <h5 class="mb-3 text-primary">Account Security</h5>
+                            <div class="form-group">
+                                <label for="password">Password*</label>
+                                <div class="password-container">
+                                    <input type="password" class="form-control" id="password" placeholder="Create a password" required>
+                                    <span class="password-toggle" id="togglePassword">
+                                        <i class="far fa-eye"></i>
+                                    </span>
+                                </div>
+                                <div class="strength-meter">
+                                    <div class="strength-meter-fill" id="strengthMeter"></div>
+                                </div>
+                                <div class="strength-text" id="strengthText">Password strength</div>
+                                <div class="invalid-feedback">Please create a strong password (min 8 characters)</div>
+                                <small class="form-text text-muted">Use at least 8 characters with a mix of letters, numbers & symbols</small>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="confirmPassword">Confirm Password*</label>
+                                <div class="password-container">
+                                    <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm your password" required>
+                                    <span class="password-toggle" id="toggleConfirmPassword">
+                                        <i class="far fa-eye"></i>
+                                    </span>
+                                </div>
+                                <div class="invalid-feedback">Passwords do not match</div>
+                            </div>
+                            
+                            <!-- Terms and Conditions -->
+                            <div class="form-group form-check">
+                                <input type="checkbox" class="form-check-input" id="agreeTerms" required>
+                                <label class="form-check-label terms-text" for="agreeTerms">
+                                    I agree to the <a href="#" data-toggle="modal" data-target="#termsModal">Terms of Service</a> and <a href="#" data-toggle="modal" data-target="#privacyModal">Privacy Policy</a>*
+                                </label>
+                                <div class="invalid-feedback">You must agree to the terms</div>
+                            </div>
+                            
+                            <!-- Submit Button -->
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-auth">
+                                    <i class="fas fa-user-plus mr-2"></i>Create Account
+                                </button>
+                            </div>
+                            
+                            <!-- Divider -->
+                            <div class="divider">OR</div>
+                            
+                            <!-- Social Registration -->
+                            <div class="form-group">
+                                <button type="button" class="btn btn-google mb-2">
+                                    <i class="fab fa-google mr-2"></i>Sign up with Google
+                                </button>
+                                <button type="button" class="btn btn-facebook">
+                                    <i class="fab fa-facebook-f mr-2"></i>Sign up with Facebook
+                                </button>
+                            </div>
+                            
+                            <!-- Login Link -->
+                            <div class="auth-footer">
+                                <p>Already have an account? <a href="login.html" id="loginLink">Sign in</a></p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Terms Modal -->
+    <div class="modal fade" id="termsModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Terms of Service</h5>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h6>1. Account Registration</h6>
+                    <p>You must provide accurate and complete information when creating an account. You are responsible for maintaining the confidentiality of your account credentials.</p>
+                    
+                    <h6>2. Donation Guidelines</h6>
+                    <p>All donations must comply with our community guidelines. You agree that donated items are safe, legal, and appropriate for redistribution.</p>
+                    
+                    <h6>3. User Responsibilities</h6>
+                    <p>You are responsible for all activities that occur under your account. You must immediately notify us of any unauthorized use of your account.</p>
+                    
+                    <h6>4. Privacy</h6>
+                    <p>We respect your privacy and handle your personal information in accordance with our Privacy Policy.</p>
+                    
+                    <h6>5. Changes to Terms</h6>
+                    <p>We may modify these terms at any time. Continued use of the service constitutes acceptance of the modified terms.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Privacy Modal -->
+    <div class="modal fade" id="privacyModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Privacy Policy</h5>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h6>1. Information We Collect</h6>
+                    <p>We collect personal information you provide when creating an account, making donations, or using our services. This may include name, email, address, and phone number.</p>
+                    
+                    <h6>2. How We Use Information</h6>
+                    <p>We use your information to provide and improve our services, process donations, communicate with you, and ensure the security of our platform.</p>
+                    
+                    <h6>3. Information Sharing</h6>
+                    <p>We do not sell your personal information. We may share information with service providers who assist us in operating our platform, or when required by law.</p>
+                    
+                    <h6>4. Data Security</h6>
+                    <p>We implement appropriate security measures to protect your personal information from unauthorized access or disclosure.</p>
+                    
+                    <h6>5. Your Rights</h6>
+                    <p>You may access, update, or delete your personal information through your account settings or by contacting us.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white pt-4 pb-2 mt-auto">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5><i class="fas fa-hands-helping mr-2"></i>Helping Hands</h5>
+                    <p>Bridging the gap between those who want to help and those who need help through the power of community donations.</p>
+                    <div class="social-icons mt-3">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <h5>Quick Links</h5>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="food.html">Donate Food</a></li>
+                        <li><a href="clothes.html">Donate Clothes</a></li>
+                        <li><a href="books.html">Donate Books</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <h5>Resources</h5>
+                    <ul class="footer-links">
+                        <li><a href="available_items.html">Available Items</a></li>
+                        <li><a href="cart.html">Your Cart</a></li>
+                        <li><a href="login.html">Login</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5>Contact Us</h5>
+                    <p><i class="fas fa-map-marker-alt mr-2"></i> 123 Helping Street, Community City</p>
+                    <p><i class="fas fa-phone mr-2"></i> (123) 456-7890</p>
+                    <p><i class="fas fa-envelope mr-2"></i> info@helpinghands.org</p>
+                </div>
+            </div>
+            <div class="copyright text-center">
+                <p>&copy; 2024 Helping Hands Donation Center. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+    $(document).ready(function () {
+        // Toggle password visibility
+        $('#togglePassword, #toggleConfirmPassword').click(function () {
+            const inputId = $(this).attr('id') === 'togglePassword' ? '#password' : '#confirmPassword';
+            const passwordInput = $(inputId);
+            const icon = $(this).find('i');
+
+            if (passwordInput.attr('type') === 'password') {
+                passwordInput.attr('type', 'text');
+                icon.removeClass('fa-eye').addClass('fa-eye-slash');
+            } else {
+                passwordInput.attr('type', 'password');
+                icon.removeClass('fa-eye-slash').addClass('fa-eye');
+            }
+        });
+
+        // Password strength meter
+        $('#password').on('input', function () {
+            const password = $(this).val();
+            const meter = $('#strengthMeter');
+            const text = $('#strengthText');
+
+            meter.removeClass('strength-weak strength-medium strength-strong');
+            meter.css('width', '0');
+
+            if (password.length === 0) {
+                text.text('Password strength');
+                return;
+            }
+
+            let strength = 0;
+            if (password.length > 7) strength++;
+            if (password.length > 11) strength++;
+            if (/\d/.test(password)) strength++;
+            if (/[!@#$%^&*(),.?":{}|<>]/.test(password)) strength++;
+            if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength++;
+
+            if (strength <= 2) {
+                meter.addClass('strength-weak');
+                text.text('Weak');
+            } else if (strength <= 4) {
+                meter.addClass('strength-medium');
+                text.text('Medium');
+            } else {
+                meter.addClass('strength-strong');
+                text.text('Strong');
+            }
+        });
+
+        // Form validation and registration
+        $('#registerForm').submit(function (e) {
+            e.preventDefault();
+            let isValid = true;
+
+            // Clear previous errors
+            $('.is-invalid').removeClass('is-invalid');
+            $('.invalid-feedback').hide();
+
+            const fields = {
+                firstName: $('#firstName'),
+                lastName: $('#lastName'),
+                email: $('#email'),
+                phone: $('#phone'),
+                address: $('#address'),
+                password: $('#password'),
+                confirmPassword: $('#confirmPassword'),
+                agreeTerms: $('#agreeTerms')
+            };
+
+            // Validate required
+            for (let key in fields) {
+                if (!fields[key].val() || (key === 'agreeTerms' && !fields[key].is(':checked'))) {
+                    fields[key].addClass('is-invalid');
+                    fields[key].next('.invalid-feedback').show();
+                    isValid = false;
+                }
+            }
+
+            // Validate email
+            const email = fields.email.val();
+            if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                fields.email.addClass('is-invalid');
+                fields.email.next('.invalid-feedback').text('Please enter a valid email address').show();
+                isValid = false;
+            }
+
+            // Validate phone
+            const phone = fields.phone.val();
+            if (phone && !/^[\d\s\-()+]{10,}$/.test(phone)) {
+                fields.phone.addClass('is-invalid');
+                fields.phone.next('.invalid-feedback').text('Please enter a valid phone number').show();
+                isValid = false;
+            }
+
+            // Validate password match
+            const password = fields.password.val();
+            const confirmPassword = fields.confirmPassword.val();
+            if (password.length < 8) {
+                fields.password.addClass('is-invalid');
+                fields.password.next('.invalid-feedback').text('Password must be at least 8 characters').show();
+                isValid = false;
+            } else if (password !== confirmPassword) {
+                fields.confirmPassword.addClass('is-invalid');
+                fields.confirmPassword.next('.invalid-feedback').text('Passwords do not match').show();
+                isValid = false;
+            }
+
+            if (isValid) {
+                processRegistration();
+            }
+        });
+        function processRegistration() {
+    const registerBtn = $('#registerForm button[type="submit"]');
+    registerBtn.html('<span class="spinner-border spinner-border-sm mr-2" role="status"></span>Creating account...');
+    registerBtn.prop('disabled', true);
+
+    const userData = {
+        firstName: $('#firstName').val(),
+        lastName: $('#lastName').val(),
+        email: $('#email').val(),
+        phone: $('#phone').val(),
+        address: $('#address').val(),
+        password: $('#password').val()
+    };
+
+    fetch('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(userData)
+    })
+    .then(async (res) => {
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.msg || data.error || 'Registration failed');
+
+        // ✅ Save user and token to localStorage
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('user', JSON.stringify(data.user));
+
+        // ✅ Redirect to homepage
+        window.location.href = 'index.html';
+    })
+    .catch(err => {
+        $('#registerForm').prepend(`
+            <div class="alert alert-danger">
+                <i class="fas fa-exclamation-circle mr-2"></i>${err.message}
+            </div>
+        `);
+        registerBtn.html('<i class="fas fa-user-plus mr-2"></i>Create Account');
+        registerBtn.prop('disabled', false);
+    });
+}
+
+        
+
+        
+
+        // Social registration demo
+        $('.btn-google, .btn-facebook').click(function () {
+            alert('Social registration would go here via OAuth.');
+        });
+
+        $('#loginLink').click(function (e) {
+            e.preventDefault();
+            window.location.href = 'login.html';
+        });
+    });
+  if (localStorage.getItem("user")) {
+    window.location.href = "index.html"; // or dashboard.html if preferred
+  }
+</script>
+
+</script>
+
+   
+</body>
+</html>

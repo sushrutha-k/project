@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Available Items | Helping Hands</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Bootstrap & FontAwesome -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f8f9fa;
+    }
+
+    .navbar-brand {
+      font-weight: bold;
+    }
+
+    .header-section {
+      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+        url('https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=1350&q=80');
+      background-size: cover;
+      background-position: center;
+      color: white;
+      padding: 5rem 0;
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .donation-card {
+      margin-bottom: 2rem;
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .donation-card .card-header {
+      background-color: #4a6fa5;
+      color: white;
+      font-weight: 600;
+      border-radius: 12px 12px 0 0;
+    }
+
+    .card-body p {
+      margin-bottom: 0.5rem;
+    }
+
+    .no-items {
+      text-align: center;
+      font-size: 1.2rem;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ✅ Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <a class="navbar-brand" href="#"><i class="fas fa-hands-helping mr-2"></i>Helping Hands</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      <li class="nav-item"><a class="nav-link" href="index.html"><i class="fas fa-home mr-1"></i>Home</a></li>
+      <li class="nav-item"><a class="nav-link" href="food.html"><i class="fas fa-utensils mr-1"></i>Donate Food</a></li>
+      <li class="nav-item"><a class="nav-link" href="clothes.html"><i class="fas fa-tshirt mr-1"></i>Donate Clothes</a></li>
+      <li class="nav-item"><a class="nav-link" href="books.html"><i class="fas fa-book mr-1"></i>Donate Books</a></li>
+      <li class="nav-item active"><a class="nav-link" href="#"><i class="fas fa-boxes mr-1"></i>Available Items</a></li>
+      <li class="nav-item"><a class="nav-link" href="cart.html"><i class="fas fa-shopping-cart mr-1"></i>Cart</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Header -->
+<div class="header-section">
+  <h1 class="display-4 font-weight-bold">Available Donations</h1>
+  <p class="lead">Explore items currently available for pickup</p>
+</div>
+
+<!-- Filters -->
+<div class="container mb-4">
+  <div class="row">
+    <div class="col-md-4 mb-2">
+      <select id="filterType" class="form-control">
+        <option value="">-- Filter by Type --</option>
+        <option value="Food">Food</option>
+        <option value="Books">Books</option>
+        <option value="Clothes">Clothes</option>
+      </select>
+    </div>
+    <div class="col-md-8 mb-2">
+      <input type="text" id="searchInput" class="form-control" placeholder="Search by donor name, address, or category..." />
+    </div>
+  </div>
+</div>
+
+<!-- Items Container -->
+<div class="container">
+  <div id="itemsContainer" class="row"></div>
+</div>
+
+<!-- Scripts -->
+<script>
+  const itemsContainer = document.getElementById('itemsContainer');
+  const filterType = document.getElementById('filterType');
+  const searchInput = document.getElementById('searchInput');
+  let allDonations = [];
+
+  function createItemCard(item) {
+    return `
+      <div class="col-md-6 col-lg-4">
+        <div class="card donation-card">
+          <div class="card-header">${item.type} Donation</div>
+          <div class="card-body">
+            <p><strong>Donor:</strong> ${item.name}</p>
+            <p><strong>Phone:</strong> ${item.phone}</p>
+            <p><strong>Address:</strong> ${item.address}</p>
+            <p><strong>Category:</strong> ${item.category || '-'}</p>
+            ${item.description ? `<p><strong>Description:</strong> ${item.description}</p>` : ''}
+            <p><strong>Quantity:</strong> ${item.quantity}</p>
+            ${item.bestBefore ? `<p><strong>Best Before:</strong> ${item.bestBefore} hrs</p>` : ''}
+            <p><strong>Pickup Time:</strong> ${item.pickupTime}</p>
+            <p><small><strong>Submitted:</strong> ${item.date}</small></p>
+            <button class="btn btn-sm btn-success mt-2" onclick='addToCart(${JSON.stringify(item)})'>
+              <i class="fas fa-cart-plus mr-1"></i>Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  function addToCart(item) {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    cart.push(item);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    alert('🛒 Item added to cart!');
+  }
+
+  function displayItems(data) {
+    if (data.length === 0) {
+      itemsContainer.innerHTML = '<p class="no-items w-100">No donations match your filters.</p>';
+      return;
+    }
+    itemsContainer.innerHTML = data.map(createItemCard).join('');
+  }
+
+  function applyFilters() {
+    const type = filterType.value.toLowerCase();
+    const search = searchInput.value.toLowerCase();
+
+    const filtered = allDonations.filter(item => {
+      const matchesType = !type || item.type.toLowerCase() === type;
+      const matchesSearch =
+        item.name.toLowerCase().includes(search) ||
+        item.address.toLowerCase().includes(search) ||
+        (item.category && item.category.toLowerCase().includes(search));
+      return matchesType && matchesSearch;
+    });
+
+    displayItems(filtered.reverse());
+  }
+
+  async function loadItems() {
+    try {
+      const res = await fetch('/api/donations');
+      const data = await res.json();
+      allDonations = Array.isArray(data) ? data : [];
+      applyFilters();
+    } catch (err) {
+      console.error('Error loading donations:', err);
+      itemsContainer.innerHTML = '<p class="text-danger w-100 text-center">Failed to load donations.</p>';
+    }
+  }
+
+  filterType.addEventListener('change', applyFilters);
+  searchInput.addEventListener('input', applyFilters);
+
+  loadItems();
+</script>
+
+</body>
+</html>

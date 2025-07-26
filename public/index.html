@@ -1,0 +1,625 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <title>Helping Hands | Donation Center</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4a6fa5;
+            --secondary-color: #166088;
+            --accent-color: #4fc3f7;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .navbar {
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .hero-section {
+            background: linear-gradient(rgba(74, 111, 165, 0.8), rgba(22, 96, 136, 0.9)), url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+        }
+        
+        .hero-section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .hero-section p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            padding: 0.5rem 1.5rem;
+            font-weight: 500;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            border-color: white;
+            color: white;
+            padding: 0.5rem 1.5rem;
+            font-weight: 500;
+            margin-left: 1rem;
+        }
+        
+        .btn-secondary:hover {
+            background-color: white;
+            color: var(--primary-color);
+        }
+        
+        .card-product {
+            border: none;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-bottom: 2rem;
+            background: white;
+        }
+        
+        .card-product:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .img-wrap {
+            overflow: hidden;
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .card-product:hover .img-wrap img {
+            transform: scale(1.05);
+        }
+        
+        .info-wrap {
+            padding: 1.5rem;
+        }
+        
+        .info-wrap h4 {
+            font-weight: 600;
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .info-wrap p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .bottom-wrap {
+            padding: 0 1.5rem 1.5rem;
+        }
+        
+        .add-to-cart {
+            width: 100%;
+        }
+        
+        section {
+            padding: 4rem 0;
+        }
+        
+        .section-title {
+            font-weight: 700;
+            color: var(--secondary-color);
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 3px;
+            background: var(--accent-color);
+            bottom: -10px;
+            left: 0;
+        }
+        
+        .feature-box {
+            text-align: center;
+            padding: 2rem;
+            border-radius: 10px;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+            margin-bottom: 2rem;
+            height: 100%;
+        }
+        
+        .feature-box:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .testimonial-card {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+        }
+        
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        
+        .stats-box {
+            text-align: center;
+            padding: 2rem;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+        
+        .stats-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stats-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        
+        footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+        
+        .social-icons a {
+            color: white;
+            font-size: 1.5rem;
+            margin: 0 0.5rem;
+            transition: color 0.3s;
+        }
+        
+        .social-icons a:hover {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-links a {
+            color: #adb5bd;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            text-decoration: none;
+        }
+        
+        .copyright {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 1rem;
+            margin-top: 2rem;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 3rem 0;
+            }
+            
+            .hero-section h2 {
+                font-size: 2rem;
+            }
+            
+            .btn-secondary {
+                margin-left: 0;
+                margin-top: 1rem;
+                display: block;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-md navbar-dark bg-primary sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-hands-helping mr-2"></i>Helping Hands
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <p id="welcomeUser" class="text-white font-weight-bold my-auto mr-3 d-none"></p>
+                <ul class="navbar-nav ml-auto">
+  <li class="nav-item active">
+    <a class="nav-link" href="index.html">Home</a>
+  </li>
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="donateDropdown" role="button" data-toggle="dropdown">
+      Donate
+    </a>
+    <div class="dropdown-menu">
+      <a class="dropdown-item" href="food.html"><i class="fas fa-utensils mr-2"></i>Food</a>
+      <a class="dropdown-item" href="clothes.html"><i class="fas fa-tshirt mr-2"></i>Clothes</a>
+      <a class="dropdown-item" href="books.html"><i class="fas fa-book mr-2"></i>Books</a>
+    </div>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="available_items.html"><i class="fas fa-box-open mr-1"></i>Available Items</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="cart.html"><i class="fas fa-shopping-cart mr-1"></i>Cart</a>
+  </li>
+
+  <!-- 👇 This will be shown only if user is NOT logged in -->
+  <li class="nav-item" id="loginNav">
+    <a class="nav-link" href="login.html"><i class="fas fa-user mr-1"></i>Login</a>
+  </li>
+
+  <!-- 👇 This will be shown only if user IS logged in -->
+  <li class="nav-item d-none" id="welcomeNav">
+    <a class="nav-link disabled text-white" href="#">
+      <i class="fas fa-user mr-1"></i><span id="welcomeUser">Hi, User</span>
+    </a>
+  </li>
+  <li class="nav-item d-none" id="logoutNav">
+    <a class="nav-link" href="#" onclick="logoutUser()"><i class="fas fa-sign-out-alt mr-1"></i>Logout</a>
+  </li>
+</ul>
+
+                
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <h1 class="display-4 font-weight-bold">Your Donation Changes Lives</h1>
+            <h2 id="personalWelcome" class="text-warning mt-3 d-none">Welcome back, <span id="userGreetingName"></span>!</h2>
+
+            <p class="lead">Join us in making a difference by donating food, clothes, and books to those in need</p>
+            <div class="mt-4">
+                
+                <a href="#how-it-works" class="btn btn-secondary btn-lg"><i class="fas fa-info-circle mr-2"></i>How It Works</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Donations -->
+    <section class="bg-light">
+        <div class="container">
+            <h2 class="text-center section-title">What You Can Donate</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card-product zoom">
+                        <div class="img-wrap">
+                            <img src="https://images.unsplash.com/photo-1505576399279-565b52d4ac71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Donate Food">
+                        </div>
+                        <figcaption class="info-wrap">
+                            <h4 class="title">Feeding Hope</h4>
+                            <p class="desc">"One cannot sleep well, think well, be well, if one has not dined well"</p>
+                        </figcaption>
+                        <div class="bottom-wrap">
+                            <a href="food.html" class="btn btn-primary btn-block add-to-cart">
+                                <i class="fas fa-utensils mr-2"></i>Donate Food
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="card-product zoom">
+                        <div class="img-wrap">
+                            <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Donate Books">
+                        </div>
+                        <figcaption class="info-wrap">
+                            <h4 class="title">Pass the Knowledge</h4>
+                            <p class="desc">"When you donate a book, you're giving someone the key to a thousand doors"</p>
+                        </figcaption>
+                        <div class="bottom-wrap">
+                            <a href="books.html" class="btn btn-primary btn-block add-to-cart">
+                                <i class="fas fa-book mr-2"></i>Donate Books
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="card-product zoom">
+                        <div class="img-wrap">
+                            <img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Donate Clothes">
+                        </div>
+                        <figcaption class="info-wrap">
+                            <h4 class="title">Threads of Kindness</h4>
+                            <p class="desc">"The clothes you no longer need could be the warmth someone else desperately seeks"</p>
+                        </figcaption>
+                        <div class="bottom-wrap">
+                            <a href="clothes.html" class="btn btn-primary btn-block add-to-cart">
+                                <i class="fas fa-tshirt mr-2"></i>Donate Clothes
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how-it-works">
+        <div class="container">
+            <h2 class="text-center section-title">How It Works</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="feature-box">
+                        <div class="feature-icon">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                        <h4>1. Create Account</h4>
+                        <p>Sign up as a donor or recipient with just a few basic details.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-box">
+                        <div class="feature-icon">
+                            <i class="fas fa-box-open"></i>
+                        </div>
+                        <h4>2. List Items</h4>
+                        <p>Donors can list items they want to donate with details and photos.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-box">
+                        <div class="feature-icon">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h4>3. Connect & Donate</h4>
+                        <p>Recipients can browse available items and request what they need.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Stats -->
+    <section class="bg-primary text-white">
+        <div class="container">
+            <h2 class="text-center section-title text-white">Our Impact</h2>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="stats-box">
+                        <div class="stats-number">1,250+</div>
+                        <div class="stats-label">Meals Provided</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stats-box">
+                        <div class="stats-number">850+</div>
+                        <div class="stats-label">Clothing Items Donated</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stats-box">
+                        <div class="stats-number">2,300+</div>
+                        <div class="stats-label">Books Shared</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stats-box">
+                        <div class="stats-number">500+</div>
+                        <div class="stats-label">Happy Families</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="bg-light">
+        <div class="container">
+            <h2 class="text-center section-title">What People Say</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">"This platform helped me donate my unused books to children who really needed them. The process was so simple and rewarding!"</p>
+                        <div class="testimonial-author">- Sarah Johnson, Donor</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">"As a single mother, the winter clothes we received through Helping Hands made all the difference for my kids this winter."</p>
+                        <div class="testimonial-author">- Maria Gonzalez, Recipient</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">"Our community center regularly receives food donations through this platform. It's been a game-changer for our meal programs."</p>
+                        <div class="testimonial-author">- David Wilson, Community Center</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="bg-secondary text-white text-center">
+        <div class="container">
+            <h2 class="mb-4">Ready to Make a Difference?</h2>
+           
+            <a href="available_items.html" class="btn btn-light btn-lg"><i class="fas fa-search mr-2"></i>Browse Donations</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5><i class="fas fa-hands-helping mr-2"></i>Helping Hands</h5>
+                    <p>Bridging the gap between those who want to help and those who need help through the power of community donations.</p>
+                    <div class="social-icons mt-3">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <h5>Quick Links</h5>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="food.html">Donate Food</a></li>
+                        <li><a href="clothes.html">Donate Clothes</a></li>
+                        <li><a href="books.html">Donate Books</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <h5>Resources</h5>
+                    <ul class="footer-links">
+                        <li><a href="available_items.html">Available Items</a></li>
+                        <li><a href="cart.html">Your Cart</a></li>
+                        <li><a href="login.html">Login</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5>Contact Us</h5>
+                    <p><i class="fas fa-map-marker-alt mr-2"></i> 123 Helping Street, Community City</p>
+                    <p><i class="fas fa-phone mr-2"></i> (123) 456-7890</p>
+                    <p><i class="fas fa-envelope mr-2"></i> info@helpinghands.org</p>
+                </div>
+            </div>
+            <div class="copyright text-center">
+                <p>&copy; 2024 Helping Hands Donation Center. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+  $(document).ready(function () {
+    // Smooth scrolling for anchor links
+    $("a").on("click", function (event) {
+      if (this.hash !== "") {
+        event.preventDefault();
+        var hash = this.hash;
+        $("html, body").animate(
+          {
+            scrollTop: $(hash).offset().top,
+          },
+          800,
+          function () {
+            window.location.hash = hash;
+          }
+        );
+      }
+    });
+
+    // Animation for stats on scroll
+    $(window).scroll(function () {
+      $(".stats-number").each(function () {
+        var position = $(this).offset().top;
+        var scroll = $(window).scrollTop();
+        var windowHeight = $(window).height();
+
+        if (scroll > position - windowHeight + 200) {
+          $(this).addClass("animated bounceIn");
+        }
+      });
+    });
+
+    // ✅ User login display logic
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    const welcomeEl = document.getElementById("welcomeUser");
+    const logoutEl = document.getElementById("logoutNav");
+    const loginEl = document.getElementById("loginNav");
+    const welcomeNav = document.getElementById("welcomeNav");
+    const greetingEl = document.getElementById("personalWelcome");
+    const greetingNameEl = document.getElementById("userGreetingName");
+
+    if (user && user.name) {
+      welcomeEl.textContent = `Hi, ${user.name}!`;
+      welcomeNav.classList.remove("d-none");
+      logoutEl.classList.remove("d-none");
+      if (loginEl) loginEl.style.display = "none";
+      if (greetingEl && greetingNameEl) {
+        greetingNameEl.textContent = user.name;
+        greetingEl.classList.remove("d-none");
+      }
+    } else {
+      welcomeNav.classList.add("d-none");
+      logoutEl.classList.add("d-none");
+      if (loginEl) loginEl.style.display = "block";
+    }
+  });
+
+  // ✅ Logout function (declared globally)
+  function logoutUser() {
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    window.location.href = "login.html";
+  }
+</script>
+
+
+</body>
+
+</html>
